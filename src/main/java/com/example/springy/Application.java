@@ -2,6 +2,7 @@ package com.example.springy;
 
 import dev.braintrust.Braintrust;
 import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.GlobalOpenTelemetry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,13 +13,18 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    public Braintrust braintrust() {
-        return Braintrust.get();
-    }
+    // @Bean
+    // public Braintrust braintrust() {
+    //     return Braintrust.get();
+    // }
+
+    // @Bean
+    // public OpenTelemetry openTelemetry(Braintrust braintrust) {
+    //     return braintrust.openTelemetryCreate();
+    // }
 
     @Bean
-    public OpenTelemetry openTelemetry(Braintrust braintrust) {
-        return braintrust.openTelemetryCreate();
+    public OpenTelemetry openTelemetry() {
+        return GlobalOpenTelemetry.get();
     }
 }

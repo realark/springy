@@ -8,7 +8,7 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 ext {
-    braintrustVersion = '0.3.2'
+    braintrustVersion = '0.3.3'
 }
 
 java {
@@ -36,8 +36,11 @@ dependencies {
 
 // Run with the DD and Braintrust agents attached
 bootRun {
+    environment "BRAINTRUST_FILTER_AI_SPANS", "TRUE"
     jvmArgs = [
+        "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005",
         "-javaagent:${configurations.ddAgent.singleFile.absolutePath}",
+        // "-javaagent:/tmp/braintrust-java-agent.jar",
         "-javaagent:${configurations.btAgent.singleFile.absolutePath}",
         "-Ddd.service=springy",
         "-Ddd.env=local",
@@ -48,5 +51,6 @@ bootRun {
         "-Ddd.remote_config.enabled=false",
         // Enable OTel compatibility mode
         "-Ddd.trace.otel.enabled=true",
+        "-Dorg.slf4j.simpleLogger.log.dev.braintrust=DEBUG",
     ]
 }
