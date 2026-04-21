@@ -1,0 +1,3 @@
+.gradle/
+build/
+dd-java-agent.jar

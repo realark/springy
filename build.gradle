@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
+// Run with the DD agent attached
+bootRun {
+    def agentJar = file("dd-java-agent.jar")
+    if (agentJar.exists()) {
+        jvmArgs = [
+            "-javaagent:${agentJar.absolutePath}",
+            "-Ddd.service=springy",
+            "-Ddd.env=local",
+            "-Ddd.trace.agent.url=http://localhost:18126",
+            "-Ddd.jmxfetch.enabled=false",
+            "-Ddd.trace.analytics.enabled=false",
+            "-Ddd.profiling.enabled=false",
+            "-Ddd.remote_config.enabled=false",
+        ]
+    }
+}
