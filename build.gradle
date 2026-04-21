@@ -35,6 +35,8 @@ bootRun {
             "-Ddd.trace.analytics.enabled=false",
             "-Ddd.profiling.enabled=false",
             "-Ddd.remote_config.enabled=false",
+            // Enable OTel compatibility mode
+            "-Ddd.trace.otel.enabled=true",
         ]
     }
 }
