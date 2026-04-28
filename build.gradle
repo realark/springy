@@ -8,7 +8,7 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 ext {
-    braintrustVersion = '0.3.3'
+    braintrustVersion = '0.3.4'
 }
 
 java {
@@ -38,9 +38,8 @@ dependencies {
 bootRun {
     environment "BRAINTRUST_FILTER_AI_SPANS", "TRUE"
     jvmArgs = [
-        "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005",
+       "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005",
         "-javaagent:${configurations.ddAgent.singleFile.absolutePath}",
-        // "-javaagent:/tmp/braintrust-java-agent.jar",
         "-javaagent:${configurations.btAgent.singleFile.absolutePath}",
         "-Ddd.service=springy",
         "-Ddd.env=local",
